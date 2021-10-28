@@ -63,6 +63,7 @@ artifacts/
 StyleCopReport.xml
 
 # Files built by Visual Studio
+*.json
 *_i.c
 *_p.c
 *_h.h
