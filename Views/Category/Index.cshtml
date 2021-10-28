@@ -1,0 +1,53 @@
+@model IEnumerable<Rocky.Models.Category>
+
+@{
+    ViewBag.Title = "Controller";
+    Layout = "_Layout";
+}
+
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h1 class="text-primary">Category list</h1>
+        </div>
+        <div class="col-6">
+            <a href="#">Create new category</a>
+        </div>
+    </div>
+    
+    <br /><br />
+    
+    @if (Model.Any())
+    {
+        <table class="table table-bordered table-striped" style="width: 100%">
+            <thead>
+            <tr>
+                <th>
+                    Category Id
+                </th>
+                <th>
+                    Category Name
+                </th>
+                <th>
+                    Display Order
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td style="width: 25%">@item.Id</td>
+                    <td style="width: 50%">@item.Name</td>
+                    <td style="width: 25%">@item.DisplayOrder</td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>No category exists.</p>
+    }
+    
+</div>
