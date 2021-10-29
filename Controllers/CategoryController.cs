@@ -41,5 +41,37 @@ namespace Rocky.Controllers
 
             return View(category);
         }
+        
+        // Get - Edit
+        public IActionResult Edit(int? id)
+        {
+            if (id == null || id == 0)
+                return NotFound();
+
+            var category = _db.Category.Find(id);
+            
+            if (category == null)
+                return NotFound();
+            
+            return View(category);
+        }
+        
+        // Post - Edit
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(Category category)
+        {
+            if (!ModelState.IsValid) return View(category);
+            
+            _db.Update(category); // TODO: Make update without swap
+            _db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+        
+        // Get - Delete
+        public IActionResult Delete()
+        {
+            return View();
+        }
     }
 }
