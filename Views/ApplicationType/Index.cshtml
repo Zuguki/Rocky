@@ -1,0 +1,47 @@
+@model IEnumerable<Rocky.Models.ApplicationType>
+
+@{
+    ViewBag.Title = "ApplicationType";
+    Layout = "_Layout";
+}
+
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h1 class="text-primary">Application Types</h1>
+        </div>
+        <div class="col-6 text-right">
+            <a asp-controller="ApplicationType" asp-action="Create" class="btn btn-primary">
+                Create new application
+            </a>
+        </div>
+    </div>
+    
+    <br /><br />
+    
+    @if (Model.Any())
+    {
+        <table class="table table-bordered table-striped" style="width: 100%">
+            <thead>
+            <tr>
+                <th>
+                    Category Name
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td style="width: 50%">@item.Name</td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>No apps exists.</p>
+    }
+    
+</div>

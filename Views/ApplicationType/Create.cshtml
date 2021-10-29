@@ -1,14 +1,14 @@
-@model Rocky.Models.Category
+@model Rocky.Models.ApplicationType
 
 @{
     ViewBag.Title = "Create Category";
     Layout = "_Layout";
 }
 
-<form method="post" asp-controller="Category" asp-action="Create">
+<form method="post" asp-controller="ApplicationType" asp-action="Create">
     <div class="border p-3">
         <div class="form-group row">
-            <h2 class="text-info pl-3">Add Category</h2>
+            <h2 class="text-info pl-3">Add Application</h2>
         </div>
         
         <div class="row">
@@ -20,25 +20,15 @@
                     <div class="col-8">
                         <input asp-for="Name" class="form-control"/>
                     </div>
-
-                </div>
-                <div class="form-group row">
-                    <div class="col-4">
-                        <label asp-for="DisplayOrder"></label>
-                    </div>
-                    <div class="col-8">
-                        <input asp-for="DisplayOrder" class="form-control"/>
-                    </div>
-
                 </div>
                 <div class="form-group row">
                     <div class="col-8 offset-4 row">
 
                         <div class="col">
-                           <input type="submit" class="btn btn-success w-100" value="Create"/>
+                            <input type="submit" class="btn btn-success w-100" value="Create"/>
                         </div>
                         <div class="col">
-                            <a asp-controller="Category" asp-action="Index" class="btn btn-info w-100">
+                            <a asp-controller="ApplicationType" asp-action="Index" class="btn btn-info w-100">
                                 Back
                             </a>
                         </div>
