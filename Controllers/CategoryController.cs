@@ -45,7 +45,7 @@ namespace Rocky.Controllers
         // Get - Edit
         public IActionResult Edit(int? id)
         {
-            if (id == null || id == 0)
+            if (id is null or 0)
                 return NotFound();
 
             var category = _db.Category.Find(id);
@@ -63,15 +63,37 @@ namespace Rocky.Controllers
         {
             if (!ModelState.IsValid) return View(category);
             
-            _db.Update(category); // TODO: Make update without swap
+            _db.Category.Update(category); // TODO: Make update without swap
             _db.SaveChanges();
             return RedirectToAction("Index");
         }
         
         // Get - Delete
-        public IActionResult Delete()
+        public IActionResult Delete(int? id)
         {
-            return View();
+            if (id is null or 0)
+                return NotFound();
+
+            var category = _db.Category.Find(id);
+            
+            if (category == null)
+                return NotFound();
+            
+            return View(category);
+        }
+        
+        // Get - Post
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult DeletePost(int? id)
+        {
+            var category = _db.Category.Find(id);
+            if (category == null)
+                return NotFound();
+            
+            _db.Category.Remove(category);
+            _db.SaveChanges();
+            return RedirectToAction("Index");
         }
     }
 }
