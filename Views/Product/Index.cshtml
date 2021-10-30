@@ -1,0 +1,64 @@
+@model IEnumerable<Rocky.Models.Product>
+
+@{
+    ViewBag.Title = "Controller";
+    Layout = "_Layout";
+}
+
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h1 class="text-primary">Product list</h1>
+        </div>
+        <div class="col-6 text-right">
+            <a asp-controller="Product" asp-action="Upsert" class="btn btn-primary">
+                <i class="far fa-plus-square"></i> &nbsp; Create new product
+            </a>
+        </div>
+    </div>
+    
+    <br /><br />
+    
+    @if (Model.Any())
+    {
+        <table class="table table-bordered table-striped" style="width: 100%">
+            <thead>
+            <tr>
+                <th>
+                    Product Name
+                </th>
+                <th>
+                    Product Price
+                </th>
+                <th>
+                    Tools
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td style="width: 50%">@item.Name</td>
+                    <td style="width: 30%">@item.Price</td>
+                    <td class="text-center">
+                        <div class="w-75 btn-group" role="group">
+                            <a asp-controller="Product" asp-route-id="@item.Id" asp-action="Upsert" class="btn btn-primary mx-2">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <a asp-controller="Product" asp-route-id="@item.Id" asp-action="Delete" class="btn btn-danger mx-2">
+                                <i class="far fa-trash-alt"></i>
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>No product exists.</p>
+    }
+    
+</div>
