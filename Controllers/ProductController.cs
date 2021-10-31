@@ -54,44 +54,15 @@ namespace Rocky.Controllers
         // Post - Upsert
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Upsert(Product product)
+        public IActionResult Upsert(ProductVM productVm)
         {
-            if (ModelState.IsValid)
-            {
-                _db.Product.Add(product);
-                _db.SaveChanges();
-                return RedirectToAction("Index");   
-            }
-
-            return View(product);
+            
         }
-        
+
         // Get - Delete
         public IActionResult Delete(int? id)
         {
-            if (id is null or 0)
-                return NotFound();
-
-            var product = _db.Product.Find(id);
-            
-            if (product == null)
-                return NotFound();
-            
-            return View(product);
-        }
-        
-        // Get - Post
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult DeletePost(int? id)
-        {
-            var product = _db.Product.Find(id);
-            if (product == null)
-                return NotFound();
-            
-            _db.Product.Remove(product);
-            _db.SaveChanges();
-            return RedirectToAction("Index");
+            return View();
         }
     }
 }
