@@ -26,8 +26,11 @@ namespace Rocky.Controllers
         public IActionResult Index()
         {
             IEnumerable<Product> products =
-                _db.Product.Include(u => u.Category)
-                    .Where(u => u.Category.Id == u.CategoryId);
+                _db.Product
+                    .Include(u => u.Category)
+                    .Where(u => u.Category.Id == u.CategoryId)
+                    .Include(p => p.ApplicationType)
+                    .Where(p => p.ApplicationType.Id == p.ApplicationTypeId);
             
             return View(products);
         }
