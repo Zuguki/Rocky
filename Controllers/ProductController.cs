@@ -137,8 +137,11 @@ namespace Rocky.Controllers
             if (id is null or 0)
                 return NotFound();
 
-            var product = _db.Product.Include(u => u.Category)
+            var product = _db.Product
+                .Include(u => u.Category)
+                .Include(u => u.ApplicationType)
                 .FirstOrDefault(u => u.Id == id);
+
             if (product == null)
                 return NotFound();
             
