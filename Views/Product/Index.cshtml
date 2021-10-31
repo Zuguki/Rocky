@@ -25,10 +25,16 @@
             <thead>
             <tr>
                 <th>
-                    Product Name
+                    Name
                 </th>
                 <th>
-                    Product Price
+                    Price
+                </th>
+                <th>
+                    Category
+                </th>
+                <th>
+                    Application Type
                 </th>
                 <th>
                     Tools
@@ -39,8 +45,10 @@
             @foreach (var item in Model)
             {
                 <tr>
-                    <td style="width: 50%">@item.Name</td>
-                    <td style="width: 30%">@item.Price</td>
+                    <td style="width: 30%">@item.Name</td>
+                    <td style="width: 10%">@item.Price</td>
+                    <td style="width: 20%">@item.Category.Name</td>
+                    <td style="width: 20%">@item.ApplicationType.Name</td>
                     <td class="text-center">
                         <div class="w-75 btn-group" role="group">
                             <a asp-controller="Product" asp-route-id="@item.Id" asp-action="Upsert" class="btn btn-primary mx-2">
