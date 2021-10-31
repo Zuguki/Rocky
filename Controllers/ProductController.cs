@@ -25,11 +25,10 @@ namespace Rocky.Controllers
 
         public IActionResult Index()
         {
-            IEnumerable<Product> products = _db.Product;
-
-            foreach (var product in products)
-                product.Category = _db.Category.FirstOrDefault(c => c.Id == product.CategoryId);
-
+            IEnumerable<Product> products =
+                _db.Product.Include(u => u.Category)
+                    .Where(u => u.Category.Id == u.CategoryId);
+            
             return View(products);
         }
 
@@ -122,13 +121,34 @@ namespace Rocky.Controllers
         // Get - Delete
         public IActionResult Delete(int? id)
         {
-            return View();
+            if (id is null or 0)
+                return NotFound();
+
+            var product = _db.Product.Include(u => u.Category)
+                .FirstOrDefault(u => u.Id == id);
+            if (product == null)
+                return NotFound();
+            
+            return View(product);
         }
         
         // Post - Delete
         public IActionResult DeletePost(int? id)
         {
+            var product = _db.Product.Find(id);
+            if (product == null)
+                return NotFound();
             
+            var upload = _webHostEnvironment.WebRootPath + WC.ImagePath;
+            var oldFile = Path.Combine(upload, product.Image);
+
+            if (System.IO.File.Exists(oldFile))
+                System.IO.File.Delete(oldFile);
+
+            _db.Product.Remove(product);
+            _db.SaveChanges();
+            
+            return RedirectToAction("Index");
         }
     }
 }
