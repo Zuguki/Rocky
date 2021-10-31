@@ -31,16 +31,7 @@ namespace Rocky.Controllers
         // Get - Upsert
         public IActionResult Upsert(int? id)
         {
-            //IEnumerable<SelectListItem> categoryDropDown = _db.Category.Select(i => new SelectListItem {
-            //    Text = i.Name,
-            //    Value = i.Id.ToString()
-            //});
-
-            //ViewBag.CategoryDropDown = categoryDropDown;
-
-            //var product = new Product();
-
-            var productVM = new ProductVM()
+            var productVm = new ProductVM()
             {
                 Product = new Product(),
                 CategorySelectList = _db.Category.Select(i => new SelectListItem {
@@ -50,14 +41,14 @@ namespace Rocky.Controllers
             };
 
             if (id == null)
-                return View(productVM);
+                return View(productVm);
 
-            productVM.Product = _db.Product.Find(id);
+            productVm.Product = _db.Product.Find(id);
 
-            if (productVM.Product == null)
+            if (productVm.Product == null)
                 return NotFound();
 
-            return View(productVM);
+            return View(productVm);
         }
         
         // Post - Upsert

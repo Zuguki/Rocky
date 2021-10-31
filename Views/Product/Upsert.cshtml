@@ -57,7 +57,7 @@
                         Image
                     </div>
                     <div class="col-8">
-                        <input type="file" name="files" id="uploadBox" multiple class="form-control" />
+                        <input type="file" name="files" id="uploadBox" multiple class="form-control"/>
                     </div>
                 </div>
 
@@ -106,4 +106,22 @@
 @section Scripts
 {
     @{<partial name="_ValidationScriptsPartial"/>}
+
+    <script>
+        function validateInput()
+        {
+            if (document.getElementById("uploadBox").value === "")
+            {
+                Swal.fire(
+                  'Error!',
+                  'Please upload an Image!',
+                  'error'
+                )
+                
+                return false;
+            }
+            
+            return true;
+        }
+    </script>
 }
