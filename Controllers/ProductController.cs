@@ -56,7 +56,10 @@ namespace Rocky.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Upsert(ProductVM productVm)
         {
-            
+            if (ModelState.IsValid)
+            {
+                
+            }
         }
 
         // Get - Delete
