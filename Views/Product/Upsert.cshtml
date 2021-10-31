@@ -97,7 +97,10 @@
                 </div>
             </div>
             <div class="col-4">
-                @* Keep this empty *@
+                @if (Model.Product.Image != null)
+                {
+                    <img src="@WC.ImagePath@Model.Product.Image" width="100%" style="border-radius: 5px; border: 1px solid gray"/>   
+                }
             </div>
         </div>
     </div>
