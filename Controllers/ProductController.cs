@@ -38,16 +38,21 @@ namespace Rocky.Controllers
         // Get - Upsert
         public IActionResult Upsert(int? id)
         {
-            var productVm = new ProductVM()
+            var productVm = new ProductVM
             {
                 Product = new Product(),
                 CategorySelectList = _db.Category.Select(i => new SelectListItem {
                     Text = i.Name,
                     Value = i.Id.ToString()
+                }),
+                ApplicationTypeSelectList = _db.ApplicationType.Select(c => new SelectListItem
+                {
+                    Text = c.Name,
+                    Value = c.Id.ToString()
                 })
             };
 
-            if (id == null)
+            if (id is null or 0)
                 return View(productVm);
 
             productVm.Product = _db.Product.Find(id);
@@ -112,10 +117,15 @@ namespace Rocky.Controllers
                 return RedirectToAction("Index");   
             }
 
-            productVm.CategorySelectList = _db.Category.Select(i => new SelectListItem
-            {
+            productVm.CategorySelectList = _db.Category.Select(i => new SelectListItem {
                 Text = i.Name,
                 Value = i.Id.ToString()
+            });
+
+            productVm.ApplicationTypeSelectList = _db.ApplicationType.Select(c => new SelectListItem
+            {
+                Text = c.Name,
+                Value = c.Id.ToString()
             });
 
             return View(productVm);
