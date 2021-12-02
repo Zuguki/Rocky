@@ -3,18 +3,18 @@
 <div class="container">
     <div class="text-center">
         <h2 class="text-info pt-1">Categories</h2>
-        <button class="btn btn-dark filter-button" data-filter="all">All</button>
+        <button class="btn btn-dark filter-button-controller" data-filter-controller="all">All</button>
         @foreach (var obj in Model.Categories)
         {
-            <button class="btn btn-outline-secondary filter-button" data-filter="@obj.Name.Replace(' ', '_')">
+            <button class="btn btn-outline-secondary filter-button-controller" data-filter-controller="@obj.Name.Replace(' ', '_')">
                 @obj.Name
             </button>
         }
         <h2 class="text-info pt-4">ApplicationTypes</h2>
-        <button class="btn btn-dark filter-button" data-filter="all">All</button>
+        <button class="btn btn-dark filter-button-apptype" data-filter-apptype="all">All</button>
         @foreach (var obj in Model.ApplicationTypes)
         {
-            <button class="btn btn-outline-secondary filter-button" data-filter="@obj.Name.Replace(' ', '_')">
+            <button class="btn btn-outline-secondary filter-button-apptype" data-filter-apptype="@obj.Name.Replace(' ', '_')">
                 @obj.Name
             </button>
         }
@@ -28,3 +28,41 @@
         }
     </div>
 </div>
+
+@section Scripts
+{
+    <script>
+        $(document).ready(function(){
+    
+        $(".filter-button-controller").click(function(){
+    
+            let category = $(this).attr('data-filter-controller');
+            
+            if(category === "all")
+            {
+                $('.filtercategory').show('1000');
+            }
+            else
+            {
+                $(".filtercategory").not('.'+category).hide('3000');
+                $('.filtercategory').filter('.'+category).show('3000');
+            }
+        });
+        
+        $(".filter-button-apptype").click(function(){
+            let apptype = $(this).attr('data-filter-apptype');
+            
+            if(apptype === "all")
+            {
+                $('.filterapptype').show('1000');
+            }
+            else
+            {
+                $(".filterapptype").not('.'+apptype).hide('3000');
+                $('.filterapptype').filter('.'+apptype).show('3000');
+            }
+        });
+    
+    });
+    </script>
+}
