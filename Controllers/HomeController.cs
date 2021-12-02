@@ -33,7 +33,25 @@ namespace Rocky.Controllers
                 Categories = _db.Category,
                 ApplicationTypes = _db.ApplicationType
             };
+            
             return View(homeVM);
+        }
+
+        public IActionResult Details(int? id)
+        {
+            if (id == null)
+                return NotFound();
+
+            var detailsVM = new DetailsVM
+            {
+                Product = _db.Product
+                    .Include(p => p.Category)
+                    .Include(p => p.ApplicationType)
+                    .FirstOrDefault(p => p.Id == id),
+                ExistsInCart = false
+            };
+
+            return View(detailsVM);
         }
 
         public IActionResult Privacy()
