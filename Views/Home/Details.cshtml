@@ -41,12 +41,18 @@
                 <div class="card-footer bg-dark">
                     <div class="row">
                         <div class="col-12 col-md-6 pb-1 ">
-                            <a class="btn btn-success btn-square form-control btn-lg" style="height:50px;">Back to List</a>
+                            <a asp-action="Index" class="btn btn-success btn-square form-control btn-lg" style="height:50px;">Back to List</a>
                         </div>
                         <div class="col-12 col-md-6 ">
-                           
-                            <button type="submit" class="btn btn-info form-control btn-lg" style="height:50px;">Add to Cart</button>
-                            
+                           @if (Model.ExistsInCart)
+                           {
+                               <a asp-action="RemoveInCart" asp-route-id="@Model.Product.Id" class="btn btn-success btn-square form-control btn-lg" style="height:50px;">Remove from cart</a>
+                           }
+                           else
+                           {
+                               <button type="submit" class="btn btn-info form-control btn-lg" style="height:50px;">Add to Cart</button>   
+                           }
+
                         </div>
                     </div>
                 </div>
