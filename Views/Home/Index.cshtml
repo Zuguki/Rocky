@@ -22,11 +22,9 @@
     <br />
     
     <div class="col-12">
-        <div class="col-4">
-            @foreach (var product in Model.Products)
-            {
-                
-            }
-        </div>
+        @foreach (var product in Model.Products)
+        {
+            <partial name="_IndividulProductCard" model="product"/>
+        }
     </div>
 </div>
