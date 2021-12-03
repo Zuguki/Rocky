@@ -39,10 +39,14 @@ namespace Rocky.Controllers
             return View(homeVM);
         }
 
-        public IActionResult Details(int? id)
+        public IActionResult Details(int id)
         {
-            if (id == null)
-                return NotFound();
+            var shoppingCartList = new List<ShoppingCart>();
+            if (HttpContext.Session.Get<IEnumerable<ShoppingCart>>(WC.SessionCart) != null
+                && HttpContext.Session.Get<IEnumerable<ShoppingCart>>(WC.SessionCart).Any())
+            {
+                shoppingCartList = HttpContext.Session.Get<List<ShoppingCart>>(WC.SessionCart);
+            }
 
             var detailsVM = new DetailsVM
             {
@@ -53,6 +57,14 @@ namespace Rocky.Controllers
                 ExistsInCart = false
             };
 
+            foreach (var cart in shoppingCartList)
+            {
+                if (cart.ProductId == id)
+                {
+                    detailsVM.ExistsInCart = true;
+                }
+            }
+            
             return View(detailsVM);
         }
         
