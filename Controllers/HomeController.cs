@@ -57,12 +57,9 @@ namespace Rocky.Controllers
                 ExistsInCart = false
             };
 
-            foreach (var cart in shoppingCartList)
+            foreach (var cart in shoppingCartList.Where(cart => cart.ProductId == id))
             {
-                if (cart.ProductId == id)
-                {
-                    detailsVM.ExistsInCart = true;
-                }
+                detailsVM.ExistsInCart = true;
             }
             
             return View(detailsVM);
@@ -81,6 +78,23 @@ namespace Rocky.Controllers
             shoppingCartList.Add(new ShoppingCart {ProductId = id});
             HttpContext.Session.Set(WC.SessionCart, shoppingCartList);
 
+            return RedirectToAction(nameof(Index));
+        }
+        
+        public IActionResult RemoveInCart(int id)
+        {
+            var shoppingCartList = new List<ShoppingCart>();
+            if (HttpContext.Session.Get<IEnumerable<ShoppingCart>>(WC.SessionCart) != null
+                && HttpContext.Session.Get<IEnumerable<ShoppingCart>>(WC.SessionCart).Any())
+            {
+                shoppingCartList = HttpContext.Session.Get<List<ShoppingCart>>(WC.SessionCart);
+            }
+
+            var itemToRemove = shoppingCartList.SingleOrDefault(c => c.ProductId == id);
+            if (itemToRemove != null)
+                shoppingCartList.Remove(itemToRemove);
+
+            HttpContext.Session.Set(WC.SessionCart, shoppingCartList);
             return RedirectToAction(nameof(Index));
         }
 
